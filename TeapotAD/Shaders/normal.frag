@@ -13,6 +13,15 @@ in Data
 
 uniform sampler2D diffusemap;
 uniform sampler2D normalmap;
+uniform sampler2D depthmap;
+
+uniform float heightscale;
+
+vec2 ParralaxMapping(vec2 texCoordsIn, vec3 viewDirIn)
+{
+	float height = texture(depthmap, texCoordsIn).r;
+	return texCoordsIn - viewDirIn.xy / viewDirIn.z * (height * heightscale);
+}
 
 void main()
 {
@@ -23,12 +32,12 @@ void main()
 
 	vec3 ambient = 0.1 * 0.2 * color;
 	
-	vec3 lightDir;  //Complete this
+	vec3 lightDir = normalize(data_in.TangentLight - data_in.TangentFragPos);
 
 	float diff = max(dot(lightDir, normal), 0.0);
 	vec3 diffuse = diff * color;
 
-	vec3 viewDir;   //Complete this
+	vec3 viewDir = normalize(data_in.TangentView - data_in.TangentFragPos);
 
 	vec3 reflectDir = reflect(-lightDir, normal);
 	vec3 halfway = normalize(lightDir + viewDir);

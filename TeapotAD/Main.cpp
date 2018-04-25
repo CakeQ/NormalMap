@@ -58,7 +58,7 @@ void initializeGL()
 	cursorPositionX = 0.0;
 	cursorPositionY = 0.0;
 
-	camera.setPosition(glm::vec3(0.0f, 5.0f, 25.0f));
+	camera.setPosition(glm::vec3(0.0f, 2.0f, 5.0f));
 
 	normalScene = new NormalScene();
 	normalScene->initScene(camera);

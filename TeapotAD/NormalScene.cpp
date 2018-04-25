@@ -12,22 +12,18 @@ void NormalScene::initScene(QuatCamera camera)
 
 	gl::Enable(gl::DEPTH_TEST);
 
-	plane = new VBOPlane(25.0, 25.0, 25, 25);
+	plane = new VBOMesh("models/floor.obj", false, true, true);
 
 	Bitmap diffBitmap = Bitmap::bitmapFromFile("textures/cobblesDiffuse.png");
-	diffBitmap.flipVertically();
 	gTextureDiffuse = new Texture(diffBitmap);
 
 	Bitmap normBitmap = Bitmap::bitmapFromFile("textures/cobblesNormal.png");
-	normBitmap.flipVertically();
 	gTextureNormal = new Texture(normBitmap);
 
 	Bitmap hghtBitmap = Bitmap::bitmapFromFile("textures/cobblesHeight.png");
-	hghtBitmap.flipVertically();
 	gTextureHeight = new Texture(hghtBitmap);
 
 	Bitmap specBitmap = Bitmap::bitmapFromFile("textures/cobblesSpecular.png");
-	specBitmap.flipVertically();
 	gTextureSpecular = new Texture(specBitmap);
 }
 
@@ -58,13 +54,18 @@ void NormalScene::render(QuatCamera camera)
 	gl::BindTexture(gl::TEXTURE_2D, gTextureNormal->object());
 	oShaderProgram.setUniform("normalmap", 1);
 
-	//rendering ogre
+	gl::ActiveTexture(gl::TEXTURE2);
+	gl::BindTexture(gl::TEXTURE_2D, gTextureHeight->object());
+	oShaderProgram.setUniform("depthmap", 2);
+
+	oShaderProgram.setUniform("heightscale", 0.1f);
+
+	//rendering plane
 	ModelMatrix = glm::mat4(1.0f);
 	ConfigMatrices(camera);
 	plane->render();
 
 	oShaderProgram.Disable();
-	std::cout << camera.position().x << ", " << camera.position().y << ", " << camera.position().z << std::endl;
 }
 
 void NormalScene::resize(QuatCamera camera, int w, int h)

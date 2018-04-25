@@ -23,7 +23,7 @@ private:
 
 	glm::mat4 ModelMatrix;
 
-	VBOPlane* plane;
+	VBOMesh* plane;
 
 	Texture *gTextureDiffuse;
 	Texture *gTextureNormal;
