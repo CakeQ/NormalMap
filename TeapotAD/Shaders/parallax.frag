@@ -18,10 +18,21 @@ uniform sampler2D specularmap;
 
 uniform float heightscale;
 
+vec2 ParrallaxMapping(vec2 texCoordsIn, vec3 viewDirIn)
+{
+	float height =  texture(depthmap, texCoordsIn).r;    
+    vec2 p = viewDirIn.xy / viewDirIn.z * (height * heightscale);
+    return texCoordsIn - p;   
+}
+
 void main()
 {
 	vec3 viewDir = normalize(data_in.TangentView - data_in.TangentFragPos);
 	vec2 texCoords = data_in.TexCoords;
+
+	texCoords = ParrallaxMapping(data_in.TexCoords,  viewDir);
+	if(texCoords.x > 1.0 || texCoords.y > 1.0 || texCoords.x < 0.0 || texCoords.y < 0.0)
+		discard;
 
 	vec3 normal = texture(normalmap, texCoords).rgb;
 	normal = normalize(normal * 2.0 - 1.0);

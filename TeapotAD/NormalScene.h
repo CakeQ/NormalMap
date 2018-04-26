@@ -30,6 +30,8 @@ private:
 	Texture *gTextureHeight;
 	Texture *gTextureSpecular;
 
+	float height_scale = 0.1f;
+
 	void ConfigMatrices(QuatCamera camera);
 
 public:

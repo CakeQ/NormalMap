@@ -12,19 +12,18 @@ in Data
 } data_in;
 
 uniform sampler2D diffusemap;
-uniform sampler2D normalmap;
-uniform sampler2D depthmap;
 uniform sampler2D specularmap;
-
-uniform float heightscale;
 
 void main()
 {
 	vec3 viewDir = normalize(data_in.TangentView - data_in.TangentFragPos);
 	vec2 texCoords = data_in.TexCoords;
 
-	vec3 normal = texture(normalmap, texCoords).rgb;
-	normal = normalize(normal * 2.0 - 1.0);
+	texCoords = data_in.TexCoords;
+	if(texCoords.x > 1.0 || texCoords.y > 1.0 || texCoords.x < 0.0 || texCoords.y < 0.0)
+		discard;
+
+	vec3 normal = vec3(0, 0, 0);
 
 	vec3 color = texture(diffusemap, texCoords).rgb;
 
@@ -39,7 +38,7 @@ void main()
 	vec3 halfway = normalize(lightDir + viewDir);
 
 	float spec = pow(max(dot(normal, halfway), 0.0), 32.0);
-	vec3 specular = texture(specularmap, texCoords).rgb * spec;
+	vec3 specular = texture(specularmap, texCoords).rgb;
 
 	FragColour = vec4(ambient + diffuse + specular, 1.0f);
 }

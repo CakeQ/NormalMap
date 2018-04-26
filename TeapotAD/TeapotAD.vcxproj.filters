@@ -21,6 +21,24 @@
     <None Include="Shaders\normal.vert">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Shaders\diffuse.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\diffuse.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\steepparallax.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\steepparallax.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\parallax.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\parallax.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bitmap.h">

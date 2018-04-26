@@ -148,8 +148,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="Shaders\diffuse.frag" />
+    <None Include="Shaders\diffuse.vert" />
     <None Include="Shaders\normal.frag" />
     <None Include="Shaders\normal.vert" />
+    <None Include="Shaders\parallax.frag" />
+    <None Include="Shaders\parallax.vert" />
+    <None Include="Shaders\steepparallax.frag" />
+    <None Include="Shaders\steepparallax.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bitmap.h" />
